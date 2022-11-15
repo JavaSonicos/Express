@@ -2,9 +2,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const express = require("express");
 const BD = require("../conexionBase/conn.js")
-const esquemaProductos = require("../Modelo/productos.js");
-const { updateOne } = require("../Modelo/productos.js");
-const producto = require("../Modelo/productos.js")
+const esquemaProductos = require("../Modelo/producto.js");
+const { updateOne } = require("../Modelo/producto.js");
+const producto = require("../Modelo/producto.js")
 const { Number } = require("mongoose/lib/schema/index.js");
 //const CORS= require("Cors")// incluimos esta linea para controlar el acceso a puertos
 
@@ -48,8 +48,8 @@ app.get('/ProductosStock', (req, res) => {
 
 //post para crear nuevos productos
 app.post("/GuardarProducto", (req, res) => {
-    nuevoProdcuto = new producto(req.body)
-    esquemaProductos.create(nuevoProdcuto)
+    nuevoProducto = new producto(req.body)
+    esquemaProductos.create(nuevoProducto)
     res.send("Producto Alamacenado correctamente ")
 })
 
@@ -59,7 +59,7 @@ app.put('/modificarStock', (req, res) => {
     //id del producto a modifcar
     //nueva cantidad de stock
 
-    esquemaProductos.updateOne({ id: 4001 }, { stock: 2000 }, function (err) {
+    esquemaProductos.updateOne({ id: "666777888" }, { stock: 2000 }, function (err) {
         if (err) return console.error(err);
 
     })
@@ -71,7 +71,7 @@ app.put('/modificarStock', (req, res) => {
 app.post('/modificarAll',( req , res ) =>{
     const {id, nombre, stock, descripcion,valor, imagen}= req.body
     console.log(id+" "+nombre+" "+stock+""+descripcion+""+valor+""+imagen);
-    estructProductos.update({id:"1"},{ nombre, stock, descripcion,valor, imagen}, function(err){
+    esquemaProductos.update({id:"1"},{ nombre, stock, descripcion,valor, imagen}, function(err){
         if (err) return console.error(err);
        }) 
     res.send("se actualizo  todos los datos el dato ")

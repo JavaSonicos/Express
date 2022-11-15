@@ -6,6 +6,7 @@ const esquemaVentas = require("../Modelo/ventas.js");
 const { updateOne } = require("../Modelo/ventas.js");
 
 const { Number } = require("mongoose/lib/schema/index.js");
+const ventas = require("../Modelo/ventas.js");
 //const CORS= require("Cors")// incluimos esta linea para controlar el acceso a puertos
 
 //Constates para usar express
@@ -23,7 +24,7 @@ app.listen(port, () => {
 })
 
 
-//get AdminLista de todos los productos
+//get AdminLista de todos las ventas
 
 app.get('/Ventas', (req, res) => {
     esquemaVentas.find(function (err, esquemaVentas) {
@@ -33,3 +34,18 @@ app.get('/Ventas', (req, res) => {
     })
 
 })
+
+//post para crear nuevas ventas
+app.post("/GuardarVenta", (req, res) => {
+    nuevaVenta = new ventas(req.body)
+    esquemaVentas.create(nuevaVenta)
+    res.send("Agrega al carrito ")
+    })
+
+//get ventas confirmadas
+app.get('/ConfirmaVenta', (req, res) => {
+    esquemaVentas.find({estado:    { $gte: 1 } }, function (err, esquemaVentas){
+        if (err) return console.err(err)
+        res.send(esquemaVentas);
+    })
+   })
